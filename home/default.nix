@@ -6,6 +6,7 @@
   ...
 }: {
   imports = [
+    ./xdg.nix
     ./dev.nix
     ./git.nix
     ./gtk.nix
@@ -20,6 +21,7 @@
   };
 
   home.packages = with pkgs; [
+    pkgs.transmission_4-gtk
     pkgs.telegram-desktop
     pkgs.zoom-us
     pkgs.obsidian

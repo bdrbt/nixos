@@ -20,6 +20,7 @@
     foot
     wl-clipboard
     swaybg
+    waybar
     telegram-desktop
     brave
   ];

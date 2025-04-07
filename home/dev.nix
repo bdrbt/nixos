@@ -12,6 +12,13 @@
   };
 
   home.packages = with pkgs; [
+    gnumake
+    clang
+    llvm
+    gdb
+    lldb
+    delve
+
     pkgs.go
     pkgs.gopls
     pkgs.gotools

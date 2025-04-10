@@ -18,7 +18,10 @@
     gdb
     lldb
     delve
-
+ 
+    nodejs_22
+    ansible
+   
     pkgs.go
     pkgs.gopls
     pkgs.gotools

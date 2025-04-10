@@ -21,10 +21,12 @@
   };
 
   home.packages = with pkgs; [
-    pkgs.transmission_4-gtk
-    pkgs.telegram-desktop
-    pkgs.zoom-us
-    pkgs.obsidian
+    tree
+    
+    transmission_4-gtk
+    telegram-desktop
+    zoom-us
+    obsidian
   ];
 
   # Enable home-manager and git

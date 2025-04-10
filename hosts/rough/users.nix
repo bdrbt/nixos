@@ -3,6 +3,6 @@
     initialPassword = "initialpassword";
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "podman"];
+    extraGroups = ["wheel" "networkmanager" "podman" "power" "audio" "video"];
   };
 }

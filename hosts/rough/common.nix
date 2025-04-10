@@ -12,6 +12,15 @@
     enableLsColors = true;
   };
 
+  # usb pen-drives automount
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
+  services.devmon.enable = true;
+ 
+  # power profiles
+  services.power-profiles-daemon.enable = true;
+
+
   environment.systemPackages = with pkgs; [
     vim
     eza
@@ -20,11 +29,13 @@
     ripgrep
     fd
     git
-    curl
-    wget
     p7zip
     unrar
+    btop
 
+    vlc
+    feh
     lutris
+    wineWowPackages.waylandFull
   ];
 }

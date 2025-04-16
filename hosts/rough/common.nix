@@ -32,10 +32,5 @@
     p7zip
     unrar
     btop
-
-    vlc
-    feh
-    lutris
-    wineWowPackages.waylandFull
   ];
 }

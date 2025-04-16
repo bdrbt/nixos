@@ -35,5 +35,8 @@
     waybar
     telegram-desktop
     brave
+    vlc
+    feh
+    wineWowPackages.waylandFull
   ];
 }

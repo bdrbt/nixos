@@ -22,8 +22,10 @@
     nodejs_22
     ansible
    
-    pkgs.go
-    pkgs.gopls
-    pkgs.gotools
+    go
+    gopls
+    gotools
+    golangci-lint
+    golangci-lint-langserver
   ];
 }

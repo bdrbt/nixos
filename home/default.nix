@@ -9,10 +9,13 @@
     ./xdg.nix
     ./dev.nix
     ./git.nix
+    ./neovim.nix
     ./gtk.nix
     ./lf.nix
     ./zsh.nix
     ./fonts.nix
+    ./mpd.nix
+    ./android.nix
   ];
 
     home = {
@@ -28,6 +31,10 @@
     zoom-us
     obsidian
   ];
+
+  home.sessionVariables = {
+    ELECTRON_OZONE_PLATFORM_HINT="wayland";
+  };
 
   # Enable home-manager and git
   programs.home-manager.enable = true;

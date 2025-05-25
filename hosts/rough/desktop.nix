@@ -9,32 +9,26 @@
 #    xwayland.enable = true;
 #  };
 #
-#  xdg.portal = {
-#    enable = true;
-#    xdgOpenUsePortal = true;
-#    extraPortals = with pkgs; [
-#      xdg-desktop-portal-wlr
-#    ];
-#  };
-#
-  programs.hyprland = {
+  xdg.portal = {
     enable = true;
-    # set the flake package
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    # make sure to also set the portal package, so that they are in sync
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    xdgOpenUsePortal = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome
+    ];
   };
+ 
+  programs.niri.eanble = true;
 
   environment.systemPackages = with pkgs; [
-    kitty
+    gnome-keyring
+    alacritty
+    fuzzel
     wofi
     foot
     wl-clipboard
-    swaybg
-    swayimg
     waybar
-    telegram-desktop
     brave
+    chromium
     vlc
     feh
     wineWowPackages.waylandFull

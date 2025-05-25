@@ -9,31 +9,20 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/71f47c0d-0564-4476-a49b-4561c342f8bc";
-    fsType = "btrfs";
-    options = ["subvol=root" "compress=zstd"];
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/498b30f7-0a89-4d6f-be2a-33ce8ed0c817";
+      fsType = "ext4";
+    };
 
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/71f47c0d-0564-4476-a49b-4561c342f8bc";
-    fsType = "btrfs";
-    options = ["subvol=nix" "compress=zstd" "noatime"];
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/2630-E367";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/71f47c0d-0564-4476-a49b-4561c342f8bc";
-    fsType = "btrfs";
-    options = ["subvol=home" "compress=zstd"];
-  };
-
-  fileSystems."/swap" = {
-    device = "/dev/disk/by-uuid/71f47c0d-0564-4476-a49b-4561c342f8bc";
-    fsType = "btrfs";
-    options = ["subvol=swap" "compress=none" "noatime"];
-  };
-
-  swapDevices = [{device = "/swap/swapfile";}];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/f52c962f-6b47-4b0e-a570-9be07a9121b3"; }
+    ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

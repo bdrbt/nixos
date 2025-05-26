@@ -29,7 +29,6 @@
     waybar
     brave
     chromium
-    vlc
     feh
     wineWowPackages.waylandFull
   ];

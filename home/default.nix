@@ -16,6 +16,7 @@
     ./fonts.nix
     ./mpd.nix
     ./android.nix
+    ./zathura.nix
   ];
 
     home = {
@@ -26,9 +27,11 @@
   home.packages = with pkgs; [
     tree
     
+    dconf
+    gnome-keyring
+    mpv
     transmission_4-gtk
     telegram-desktop
-    zoom-us
     obsidian
   ];
 

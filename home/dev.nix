@@ -20,6 +20,7 @@
     delve
  
     nodejs_22
+    yarn
     ansible
    
     go

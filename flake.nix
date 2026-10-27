@@ -13,18 +13,24 @@
     };
 
   };
-  outputs = inputs@{ self, nixpkgs, ... }: {
-    nixosConfigurations.area51 = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [ 
-        inputs.disko.nixosModules.disko
-        inputs.preservation.nixosModules.default
-    	inputs.hjem.nixosModules.default
-        ./hosts/area51/configuration.nix 
-        ./hosts/area51/preservation.nix
-        ./hosts/area51/disko.nix
-      ];
-    };
-  };
-}
+  outputs =
+    inputs@{ self, nixpkgs, ... }:
+    {
+      nixosConfigurations.area51 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          modulesDir = ./modules;
+          inherit self;
+        };
 
+        modules = [
+          inputs.disko.nixosModules.disko
+          inputs.preservation.nixosModules.default
+          inputs.hjem.nixosModules.default
+          ./hosts/area51/configuration.nix
+          ./hosts/area51/preservation.nix
+          ./hosts/area51/disko.nix
+        ];
+      };
+    };
+}

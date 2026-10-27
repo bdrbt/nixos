@@ -1,15 +1,21 @@
-{ config, lib, pkgs, ... }:
+{
+  pkgs,
+  modulesDir,
+  ...
+}:
 
 {
-  imports =
-    [ 
-      ./hardware-configuration.nix
-      ../common/fonts.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../common/fonts.nix
+  ];
 
   # nix settings
   nix.settings = {
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     # auto-optimize-store = true;
   };
 
@@ -31,28 +37,23 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-
   # Enable the GNOME Desktop Environment.
   # services.displayManager.gdm.enable = true;
   # services.desktopManager.gnome.enable = true;
-  
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = false;
 
-  #services.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
 
   services.devmon.enable = true;
   services.udisks2 = {
@@ -64,11 +65,11 @@
     isNormalUser = true;
     initialPassword = "q1w2e3r4";
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
+    extraGroups = [
+      "wheel"
+      "networkmanager"
     ];
   };
-
 
   # hjem settings
   hjem.clobberByDefault = true;
@@ -76,11 +77,12 @@
     enable = true;
     directory = "/home/bdrbt";
     imports = [
-      ../../modules/commondev
-      ../../modules/neovim
-      ../../modules/foot
-      ../../modules/git
-      ../../modules/waybar
+      "${modulesDir}/zsh"
+      "${modulesDir}/commondev"
+      "${modulesDir}/neovim"
+      "${modulesDir}/foot"
+      "${modulesDir}/git"
+      "${modulesDir}/waybar"
     ];
   };
 
@@ -95,12 +97,14 @@
     xwayland-satellite
   ];
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    enableLsColors = true;
-    autosuggestions.enable = true;
-  };
+  #  programs.zsh = {
+  #    enable = true;
+  #    enableCompletion = true;
+  #    enableLsColors = true;
+  #    autosuggestions.enable = true;
+  #  };
+  #
+  services.displayManager.regreet.enable = true;
 
   programs.niri = {
     enable = true;
@@ -115,4 +119,3 @@
 
   system.stateVersion = "26.05"; # Did you read the comment?
 }
-

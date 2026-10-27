@@ -6,7 +6,10 @@
 
     preserveAt."/preserved" = {
       files = [
-        { file = "/etc/machine-id"; inInitrd = true; } 
+        {
+          file = "/etc/machine-id";
+          inInitrd = true;
+        }
       ];
 
       directories = [
@@ -15,15 +18,22 @@
         "/var/lib/nixos"
         "/var/lib/bluetooth"
         "/var/log"
-        { directory = "/tmp"; mode = "0777"; }
+        {
+          directory = "/tmp";
+          mode = "0777";
+        }
       ];
 
       users.bdrbt = {
-        files = [];
+        files = [
+          ".zshrc"
+        ];
 
         directories = [
-          # configs 
+          # configs
           ".ssh"
+
+          ".config/zsh"
 
           ".config/nvim"
           ".local/state/nvim"

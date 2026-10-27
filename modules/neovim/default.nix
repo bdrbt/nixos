@@ -5,9 +5,11 @@
     ripgrep
 
     # Required langservers.
-    # Lua
-    # lua-language-server
+    # lua
     emmylua-ls
     stylua
+    # nix 
+    nil
+    nixfmt
   ];
 }

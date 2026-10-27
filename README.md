@@ -1,0 +1,4 @@
+# NixConf
+
+Personal nixos configs
+

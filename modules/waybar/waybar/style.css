@@ -1,0 +1,66 @@
+* { box-shadow: none; }
+
+window#waybar {
+	font-family: Iosevka NFP,sans-serif;
+	background: transparent;
+}
+
+.modules-left {
+	margin: 12px 12px 0 16px;
+}
+
+.modules-right {
+	margin: 12px 16px 0 0;
+}
+
+#workspaces button {
+    color: #9c8c7c;
+    background: #515154;
+    padding: 0 6px;
+    margin-right: 8px;
+    border-radius: 0;
+}
+
+#workspaces button.focused {
+    background: #9c8c7c;
+    color: #242432;
+}
+
+#workspaces button:hover {
+    border: 1px solid #9c8c7c;
+
+}
+
+#window {
+    font-weight: bold;
+    color: #dadada;
+    background: transparent;
+    border-radius: 0;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#language,
+#mpd {
+    color: #dadada;
+    background: #515154;
+    padding: 0 8px;
+    margin: 0 0 0 4px;
+    border-radius: 0;
+}
+
+

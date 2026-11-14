@@ -5,4 +5,10 @@
     fzf
     zoxide
   ];
+
+  files = {
+    ".zshrc" = {
+      source = ./zshrc;
+    };
+  };
 }

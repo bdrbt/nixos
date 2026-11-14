@@ -1,0 +1,125 @@
+# ==============================================================================
+# 1. ОСНОВНЫЕ НАСТРОЙКИ И ИСТОРИЯ
+# ==============================================================================
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+
+setopt AUTO_CD
+setopt PROMPT_SUBST
+
+# ==============================================================================
+# 2. АВТОДОПОЛНЕНИЕ И ЦВЕТА LS
+# ==============================================================================
+autoload -Uz compinit && compinit
+
+export CLICOLOR=1
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' completer _complete _match _approximate
+
+# ==============================================================================
+# 3. FZF И ZOXIDE
+# ==============================================================================
+if command -v fzf &>/dev/null; then
+    source <(fzf --zsh 2>/dev/null) || true
+fi
+
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+
+# ==============================================================================
+# 4. ПОЛЬЗОВАТЕЛЬСКАЯ ЛОГИКА СОКРАЩЕНИЯ ПУТИ И GIT PROMPT
+# ==============================================================================
+
+MAX_PWD_LENGTH=32
+
+format_custom_pwd() {
+    local p="$PWD"
+
+    # 1. Заменяем $HOME на ~
+    if [[ "$p" == "$HOME"* ]]; then
+        p="~${p#$HOME}"
+    fi
+
+    # 2. Если общая длина больше MAX_PWD_LENGTH, сразу обрезаем до 3 последних директорий
+    if [[ ${#p} -gt $MAX_PWD_LENGTH ]]; then
+        local -a segments
+        IFS='/' read -r -A segments <<< "$p"
+        local len=${#segments}
+        if [[ $len -gt 3 ]]; then
+            p=".../${segments[len-2]}/${segments[len-1]}/${segments[len]}"
+        fi
+    fi
+
+    # 3. Сокращаем компоненты пути длиннее 8 символов (кроме ~ и '...')
+    local -a segments
+    IFS='/' read -r -A segments <<< "$p"
+    
+    local i
+    for ((i=1; i<=${#segments}; i++)); do
+        local seg="${segments[i]}"
+        if [[ "$seg" != "~" && "$seg" != "..." && -n "$seg" && ${#seg} -gt 8 ]]; then
+            segments[i]="${seg[0,3]}..."
+        fi
+    done
+    p="${(j:/:)segments}"
+
+    echo "$p"
+}
+
+
+parse_git_custom() {
+    git rev-parse --is-inside-work-tree &>/dev/null || {
+        echo "%F{cyan}$(format_custom_pwd)%f %F{white}λ%f "
+        return
+    }
+
+    local branch status_out
+    branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+    status_out=$(git status --porcelain 2>/dev/null)
+
+    local branch_color="green"
+    local symbol="±"
+
+    if echo "$status_out" | grep -q '??'; then
+        branch_color="magenta"
+    elif [ -n "$status_out" ]; then
+        branch_color="red"
+    elif [ -n "$(git cherry 2>/dev/null)" ]; then
+        branch_color="yellow"
+    fi
+
+    echo "%F{cyan}$(format_custom_pwd)%f:%F{${branch_color}}${branch}%f %F{white}${symbol}%f "
+}
+
+PR_GIT_PROMPT=''
+precmd() {
+    PR_GIT_PROMPT="$(parse_git_custom)"
+}
+
+PROMPT='${PR_GIT_PROMPT}'
+
+# ==============================================================================
+# 5. ПЛАГИНЫ (при использовании Nix модулей пути подставляются через окружение)
+# ==============================================================================
+for plugin in zsh-autosuggestions zsh-syntax-highlighting; do
+    if [ -n "${NIX_PROFILES}" ] && [ -f "${NIX_PROFILES}/share/$plugin/$plugin.zsh" ]; then
+        source "${NIX_PROFILES}/share/$plugin/$plugin.zsh"
+    elif [ -f "/usr/share/$plugin/$plugin.zsh" ]; then
+        source "/usr/share/$plugin/$plugin.zsh"
+    elif [ -f "$HOME/.zsh/$plugin/$plugin.zsh" ]; then
+        source "$HOME/.zsh/$plugin/$plugin.zsh"
+    fi
+done
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'

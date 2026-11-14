@@ -26,14 +26,12 @@
 
       users.bdrbt = {
         files = [
-          ".zshrc"
+          ".zsh_history"
         ];
 
         directories = [
           # configs
           ".ssh"
-
-          ".config/zsh"
 
           ".config/nvim"
           ".local/state/nvim"

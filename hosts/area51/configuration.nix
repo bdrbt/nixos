@@ -7,6 +7,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./graphics.nix
     ../common/fonts.nix
   ];
 
@@ -18,6 +19,7 @@
     ];
     # auto-optimize-store = true;
   };
+  nixpkgs.config.allowUnfree = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -61,6 +63,7 @@
     mountOnMedia = true;
   };
 
+  programs.zsh.enable = true;
   users.users.bdrbt = {
     isNormalUser = true;
     initialPassword = "q1w2e3r4";
@@ -90,6 +93,7 @@
 
   environment.systemPackages = with pkgs; [
     tree
+    tmux
     wget
     yazi
     btop

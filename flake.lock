@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "devflakes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794672629,
+        "narHash": "sha256-+EaGYtpKHmV926VZnv3tnuo5zWKtN8xzCPr9GYF3PBg=",
+        "owner": "bdrbt",
+        "repo": "devflakes",
+        "rev": "30e7f7a741151979cb3cc1a6770a69bd12d58c30",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bdrbt",
+        "repo": "devflakes",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -73,6 +89,7 @@
     },
     "root": {
       "inputs": {
+        "devflakes": "devflakes",
         "disko": "disko",
         "hjem": "hjem",
         "nixpkgs": "nixpkgs",

@@ -1,6 +1,7 @@
 {
   pkgs,
   modulesDir,
+  inputs,
   ...
 }:
 
@@ -20,6 +21,7 @@
     # auto-optimize-store = true;
   };
   nixpkgs.config.allowUnfree = true;
+  nix.registry.devflakes.flake = inputs.devflakes;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -86,6 +88,7 @@
       "${modulesDir}/foot"
       "${modulesDir}/git"
       "${modulesDir}/waybar"
+      "${modulesDir}/xdg"
     ];
   };
 

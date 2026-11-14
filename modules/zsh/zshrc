@@ -61,7 +61,7 @@ format_custom_pwd() {
         fi
     fi
 
-    # 3. Сокращаем компоненты пути длиннее 8 символов (кроме ~ и '...')
+    # Shorten path components longer than 8 chars (except ~ and '...')
     local -a segments
     IFS='/' read -r -A segments <<< "$p"
     

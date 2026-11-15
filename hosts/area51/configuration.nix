@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
     ./graphics.nix
     ../common/fonts.nix
+    ../common/bluetooth.nix
   ];
 
   # nix settings
@@ -52,6 +53,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = false;
 
+  security.rtkit.enable = true;
   services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;

@@ -33,10 +33,13 @@
           # configs
           ".ssh"
 
+          ".config/nix"
+
           ".config/nvim"
           ".local/state/nvim"
           ".local/share/nvim"
 
+          ".local/share/TelegramDesktop"
           ".config/niri"
           ".config/mozilla"
           ".config/fuzzel"

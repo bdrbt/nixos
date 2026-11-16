@@ -9,8 +9,10 @@
   imports = [
     ./hardware-configuration.nix
     ./graphics.nix
-    ../common/fonts.nix
-    ../common/bluetooth.nix
+    ../common
+    ../../modules/mpd
+    #    ../common/fonts.nix
+    #    ../common/bluetooth.nix
   ];
 
   # nix settings

@@ -58,5 +58,5 @@
   };
 
   # Optional: If using Docker/Podman containers with CUDA (e.g., Ollama, PyTorch)
-  hardware.nvidia-container-toolkit.enable = true;
+  hardware.nvidia-container-toolkit.enable = false;
 }

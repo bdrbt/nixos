@@ -11,6 +11,7 @@
     ./graphics.nix
     ../common
     ../../modules/mpd
+    ../../modules/video
     #    ../common/fonts.nix
     #    ../common/bluetooth.nix
   ];
